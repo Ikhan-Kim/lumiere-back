@@ -4,14 +4,15 @@ from .models import Article, ArticleComment
 
 
 class ArticleCommentSerializer(serializers.ModelSerializer):
+    user = UserSerializer(required=False)
     class Meta:
         model = ArticleComment
-        fields = '__all__'
+        exclude = ['article']
 
 class ArticleListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Article
-        fields = ['title', 'user']
+        fields = '['title', 'user']'
 
 class ArticleSerializer(serializers.ModelSerializer):
     user = UserSerializer(required=False)

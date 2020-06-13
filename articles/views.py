@@ -13,6 +13,7 @@ def index(request):
     return Response(serializer.data)
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def create(request):
     serializer = ArticleSerializer(data=request.data)
     if serializer.is_valid():
@@ -25,3 +26,11 @@ def detail(request, article_id):
     serializer = ArticleDetailSerializer(article)
     return Response(serializer.data)
 
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def comment_create(request, article_id):
+    article_data = get_object_or_404(Article, id=article_id)
+    serializer = ArticleCommentSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save(user=request.user, article=article_data)
+        return Response(serializer.data)
