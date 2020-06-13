@@ -5,15 +5,17 @@ from .models import Movie, MovieRankComment
 class MovieListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
-        fields = ('title', 'vote_average', 'poster_path', 'genres')
+        fields = ('id', 'title', 'vote_average', 'poster_path', 'genres')
 
+class MovieRankCommentSerializer(serializers.ModelSerializer):
+    user = UserSerializer(required=False)
+    class Meta:
+        model = MovieRankComment
+        # fields = '__all__'
+        exclude = ['movie']
+        
 class MovieDetailSerializer(serializers.ModelSerializer):
+    comments = MovieRankCommentSerializer(many=True, read_only=True)
     class Meta:
         model = Movie
         fields = '__all__'
-
-class MovieRankCommentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = MovieRankComment
-        fields = ('rank', 'content', 'user', 'movie')
-        

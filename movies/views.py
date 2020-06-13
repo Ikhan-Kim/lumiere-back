@@ -17,3 +17,12 @@ def detail(request, movie_id):
     movie = get_object_or_404(Movie, id=movie_id)
     serializer = MovieDetailSerializer(movie)
     return Response(serializer.data)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def comment_create(request, movie_id):
+    movie_data = get_object_or_404(Movie, id=movie_id)
+    serializer = MovieRankCommentSerializer(data=request.data)
+    if serializer.is_valid(raise_exception=True):
+        serializer.save(user=request.user, movie=movie_data)
+        return Response(serializer.data)
