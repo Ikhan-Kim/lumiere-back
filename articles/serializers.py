@@ -10,9 +10,10 @@ class ArticleCommentSerializer(serializers.ModelSerializer):
         exclude = ['article']
 
 class ArticleListSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
     class Meta:
         model = Article
-        fields = '['title', 'user']'
+        fields = ['title', 'user']
 
 class ArticleSerializer(serializers.ModelSerializer):
     user = UserSerializer(required=False)

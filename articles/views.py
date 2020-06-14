@@ -9,7 +9,7 @@ from .serializers import ArticleCommentSerializer, ArticleSerializer, ArticleDet
 @api_view(['GET'])
 def index(request):
     articles = Article.objects.all()
-    serializer = ArticleListSerializer(articles, many=True)
+    serializer = ArticleSerializer(articles, many=True)
     return Response(serializer.data)
 
 @api_view(['POST'])
