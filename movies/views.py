@@ -11,7 +11,7 @@ from .serializers import MovieListSerializer, MovieDetailSerializer, MovieRankCo
 
 @api_view(['GET'])
 def index(request):
-    movies = Movie.objects.all()
+    movies = Movie.objects.all()[:18]
     serializer = MovieListSerializer(movies, many=True)
     return Response(serializer.data)
 

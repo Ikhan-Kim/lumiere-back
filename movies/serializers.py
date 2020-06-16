@@ -5,7 +5,7 @@ from .models import Movie, MovieRankComment
 class MovieListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
-        fields = ('id', 'title', 'vote_average', 'poster_path', 'genres')
+        fields = ('id', 'title', 'vote_average', 'poster_path', 'genres', 'backdrop_path')
 
 class MovieRankCommentSerializer(serializers.ModelSerializer):
     user = UserSerializer(required=False)
